@@ -1,6 +1,6 @@
-#ifndef ACTIVATIONS_CUH
+#ifndef _ACTIVATIONS_CUH_
 
-#define ACTIVATIONS_CUH
+#define _ACTIVATIONS_CUH_
 
 void activation_present();
 

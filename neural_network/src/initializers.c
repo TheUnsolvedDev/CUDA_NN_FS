@@ -10,7 +10,7 @@ void initialization_present()
     printf("Initialization Present\n");
 }
 
-tensor allocate_zero_weights(int rows, int cols)
+tensor allocate_zero_values(int rows, int cols)
 {
     tensor rw;
     rw.size[0] = rows;
@@ -42,7 +42,7 @@ tensor allocate_zero_weights(int rows, int cols)
     return rw;
 }
 
-tensor allocate_one_weights(int rows, int cols)
+tensor allocate_one_values(int rows, int cols)
 {
     tensor rw;
     rw.size[0] = rows;
@@ -74,7 +74,7 @@ tensor allocate_one_weights(int rows, int cols)
     return rw;
 }
 
-tensor allocate_uniform_weights(int rows, int cols)
+tensor allocate_uniform_values(int rows, int cols)
 {
     tensor rw;
     rw.size[0] = rows;
@@ -113,7 +113,7 @@ float randn()
     return sqrtf(-2 * logf(u1)) * cosf(2 * M_PI * u2);
 }
 
-tensor allocate_normal_weights(int rows, int cols)
+tensor allocate_normal_values(int rows, int cols)
 {
     tensor rw;
     rw.size[0] = rows;
@@ -177,7 +177,7 @@ tensor allocate_matrix(int rows, int cols, float value)
     return rw;
 }
 
-void free_weights(tensor rw)
+void free_tensor(tensor rw)
 {
     for (int i = 0; i < rw.size[0]; i++)
     {
@@ -186,9 +186,9 @@ void free_weights(tensor rw)
     free(rw.matrix);
 }
 
-void print_weights(tensor rw)
+void print_tensor(tensor rw)
 {
-    printf("\nweights:\n");
+    printf("\nmatrix:\n");
     for (int i = 0; i < rw.size[0]; i++)
     {
         for (int j = 0; j < rw.size[1]; j++)

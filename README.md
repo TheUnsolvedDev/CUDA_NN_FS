@@ -12,7 +12,7 @@ To run this project, you need the following dependencies:
 - C Compiler (e.g., GCC)
 
 ## Getting Started
-1. Clone the repository: `https://github.com/TheUnsolvedDev/IIT_Madras_days`
+1. Clone the repository: `https://github.com/TheUnsolvedDev/CUDA_NN_FS`
 2. Navigate to the project directory: `cd neural_network`
 3. Build the project: `make`
 

@@ -33,8 +33,8 @@ __global__ void sigmoid_kernel(float *input, float *output, int size)
 extern "C" tensor sigmoid_activation_gpu(tensor rw)
 {
     int total_data = rw.size[0] * rw.size[1];
-    unsigned int num_threads = NUM_THREADS;
-    unsigned int num_blocks = ceil((float)total_data / num_threads);
+    int num_threads = NUM_THREADS;
+    int num_blocks = ceil((float)total_data / num_threads);
 
     float *dvector, *dres_vector, *vector = convert2DTo1D(rw.matrix, rw.size[0], rw.size[1], true);
     cudaMalloc(&dvector, total_data * sizeof(float));
@@ -81,8 +81,8 @@ __global__ void relu_kernel(float *input, float *output, int size)
 extern "C" tensor relu_activation_gpu(tensor rw)
 {
     int total_data = rw.size[0] * rw.size[1];
-    unsigned int num_threads = 1024;
-    unsigned int num_blocks = ceil((float)total_data / num_threads);
+    int num_threads = NUM_THREADS;
+    int num_blocks = ceil((float)total_data / num_threads);
 
     float *dvector, *dres_vector, *vector = convert2DTo1D(rw.matrix, rw.size[0], rw.size[1], true);
     cudaMalloc(&dvector, total_data * sizeof(float));

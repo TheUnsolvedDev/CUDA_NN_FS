@@ -1,9 +1,10 @@
 CC := gcc
 NVCC := nvcc
 CFLAGS := -Wall -Wextra
-CUDAFLAGS := -arch=sm_75 #-lcudart
+CUDAFLAGS := -arch=sm_75 -lcudart -lcublas
 
 SRC_DIR := src
+INCLUDE_DIR := include
 OBJ_DIR := obj
 BIN_DIR := bin
 
@@ -13,8 +14,8 @@ OBJ := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 CUDA_OBJ := $(patsubst $(SRC_DIR)/%.cu, $(OBJ_DIR)/%.cu.o, $(CUDA_SRC))
 TARGET := $(BIN_DIR)/program
 
-DEPS := $(wildcard $(SRC_DIR)/*.h)
-CUDA_DEPS := $(wildcard $(SRC_DIR)/*.cuh)
+DEPS := $(wildcard $(INCLUDE_DIR)/*.h) $(wildcard $(SRC_DIR)/*.h)
+CUDA_DEPS := $(wildcard $(INCLUDE_DIR)/*.cuh) $(wildcard $(SRC_DIR)/*.cuh)
 
 .PHONY: all clean
 
@@ -25,11 +26,11 @@ $(TARGET): $(OBJ) $(CUDA_OBJ)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(DEPS)
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
 $(OBJ_DIR)/%.cu.o: $(SRC_DIR)/%.cu $(CUDA_DEPS)
 	@mkdir -p $(@D)
-	$(NVCC) $(CUDAFLAGS) -c $< -o $@
+	$(NVCC) $(CUDAFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
 clean:
 	rm -rf $(OBJ_DIR)/*.o $(OBJ_DIR)/*.cu.o $(TARGET)

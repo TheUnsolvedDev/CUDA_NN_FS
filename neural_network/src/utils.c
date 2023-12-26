@@ -2,22 +2,22 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
+#include <string.h>
+#include <time.h>
+
 #include "utils.h"
 #include "initializers.h"
 
 tensor copy_tensor(tensor tensor_a, tensor tensor_b)
 {
-    // Allocate memory for tensor_b
     tensor_b.size[0] = tensor_a.size[0];
     tensor_b.size[1] = tensor_a.size[1];
-
     tensor_b.matrix = (float **)malloc(tensor_b.size[0] * sizeof(float *));
+
     for (int i = 0; i < tensor_b.size[0]; ++i)
     {
         tensor_b.matrix[i] = (float *)malloc(tensor_b.size[1] * sizeof(float));
     }
-
-    // Copy the contents
     for (int i = 0; i < tensor_a.size[0]; ++i)
     {
         for (int j = 0; j < tensor_a.size[1]; ++j)
@@ -26,6 +26,28 @@ tensor copy_tensor(tensor tensor_a, tensor tensor_b)
         }
     }
     return tensor_b;
+}
+
+tensor convert_tensor(float **array, int rows, int cols)
+{
+    tensor result;
+    result.size[0] = rows;
+    result.size[1] = cols;
+    result.matrix = (float **)malloc(rows * sizeof(float *));
+
+    for (int i = 0; i < rows; ++i)
+    {
+        result.matrix[i] = (float *)malloc(cols * sizeof(float));
+    }
+
+    for (int i = 0; i < rows; ++i)
+    {
+        for (int j = 0; j < cols; ++j)
+        {
+            result.matrix[i][j] = array[i][j];
+        }
+    }
+    return result;
 }
 
 float *convert2DTo1D(float **arr2D, int rows, int cols, bool free_data)
@@ -63,4 +85,127 @@ float **convert1DTo2D(float *arr1D, int rows, int cols, bool free_data)
     if (free_data)
         free(arr1D);
     return arr2D;
+}
+
+float **read_csv(const char *filename, int *num_rows, int *num_columns)
+{
+    FILE *file = fopen(filename, "r");
+    if (!file)
+    {
+        fprintf(stderr, "Error opening file: %s\n", filename);
+        exit(EXIT_FAILURE);
+    }
+
+    *num_rows = 0;
+    *num_columns = 0;
+    char line[MAX_LINE_LENGTH];
+
+    if (fgets(line, sizeof(line), file))
+    {
+        char *token = strtok(line, ",");
+        while (token != NULL)
+        {
+            (*num_columns)++;
+            token = strtok(NULL, ",");
+        }
+        (*num_rows)++;
+    }
+
+    while (fgets(line, sizeof(line), file) != NULL)
+    {
+        (*num_rows)++;
+    }
+
+    fseek(file, 0, SEEK_SET);
+    float **data_array = (float **)malloc((*num_rows - 1) * sizeof(float *));
+
+    for (int i = 0; i < *num_rows - 1; i++)
+    {
+        data_array[i] = (float *)malloc(*num_columns * sizeof(float));
+    }
+
+    for (int i = 0; i < *num_rows; i++)
+    {
+        fgets(line, sizeof(line), file);
+        char *token = strtok(line, ",");
+        if (i == 0)
+            continue;
+        for (int j = 0; j < *num_columns; j++)
+        {
+            data_array[i - 1][j] = atof(token);
+            token = strtok(NULL, ",");
+        }
+    }
+    *num_rows -= 1;
+    fclose(file);
+    return data_array;
+}
+
+float **array2d_slice(float **array, int start_row, int end_row, int start_col, int end_col)
+{
+    int num_rows = end_row - start_row;
+    float **result = (float **)malloc(num_rows * sizeof(float *));
+
+    for (int i = 0; i < num_rows; ++i)
+    {
+        result[i] = (float *)malloc((end_col - start_col) * sizeof(float));
+    }
+
+    for (int i = start_row; i < end_row; ++i)
+    {
+        for (int j = start_col; j < end_col; ++j)
+        {
+            result[i - start_row][j - start_col] = array[i][j];
+        }
+    }
+
+    return result;
+}
+
+void print_2d_array(float **data_array, int num_rows, int num_columns)
+{
+    for (int i = 0; i < num_rows; i++)
+    {
+        for (int j = 0; j < num_columns; j++)
+        {
+            printf("%.4f ", data_array[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void print_1d_array(int *array, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+}
+
+void free_2d_array(float **data_array, int num_rows)
+{
+    for (int i = 0; i < num_rows; i++)
+    {
+        free(data_array[i]);
+    }
+    free(data_array);
+}
+
+void swap(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void fisher_yates_shuffle(int *array, int size)
+{
+    srand((unsigned int)time(NULL));
+
+    for (int i = size - 1; i > 0; --i)
+    {
+        int j = rand() % (i + 1);
+        swap(&array[i], &array[j]);
+    }
 }
