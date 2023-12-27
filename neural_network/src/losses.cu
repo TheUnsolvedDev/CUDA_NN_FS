@@ -23,6 +23,40 @@ extern "C" float mean(tensor array)
     return (float)bar / (float)(array.size[0] * array.size[1]);
 }
 
+extern "C" void mean_vector(tensor *array, tensor *result, int axis)
+{
+    if (axis < 0 || axis >= 2)
+    {
+        printf("Invalid axis. Axis must be 0 (for mean along rows) or 1 (for mean along columns).\n");
+        return;
+    }
+
+    if (axis == 0)
+    {
+        for (int j = 0; j < array->size[1]; j++)
+        {
+            float colSum = 0.0;
+            for (int i = 0; i < array->size[0]; i++)
+            {
+                colSum += array->matrix[i][j];
+            }
+            result->matrix[j][0] = colSum / array->size[0];
+        }
+    }
+    else if (axis == 1)
+    {
+        for (int j = 0; j < array->size[1]; j++)
+        {
+            float rowSum = 0.0;
+            for (int i = 0; i < array->size[0]; i++)
+            {
+                rowSum += array->matrix[i][j];
+            }
+            result->matrix[0][j] = rowSum / array->size[1];
+        }
+    }
+}
+
 __device__ float squared_diff(float a, float b)
 {
     return pow(a - b, 2);

@@ -8,24 +8,48 @@
 #include "utils.h"
 #include "initializers.h"
 
-tensor copy_tensor(tensor tensor_a, tensor tensor_b)
+void copy_tensor(tensor *tensor_a, tensor *tensor_b)
 {
-    tensor_b.size[0] = tensor_a.size[0];
-    tensor_b.size[1] = tensor_a.size[1];
-    tensor_b.matrix = (float **)malloc(tensor_b.size[0] * sizeof(float *));
-
-    for (int i = 0; i < tensor_b.size[0]; ++i)
+    if (tensor_a->size[0] != tensor_b->size[0] || tensor_a->size[1] != tensor_b->size[1])
     {
-        tensor_b.matrix[i] = (float *)malloc(tensor_b.size[1] * sizeof(float));
+        printf("Illegal dimension! please check!!\n");
+        exit(EXIT_FAILURE);
     }
-    for (int i = 0; i < tensor_a.size[0]; ++i)
+    for (int i = 0; i < tensor_a->size[0]; ++i)
     {
-        for (int j = 0; j < tensor_a.size[1]; ++j)
+        for (int j = 0; j < tensor_a->size[1]; ++j)
         {
-            tensor_b.matrix[i][j] = tensor_a.matrix[i][j];
+            tensor_b->matrix[i][j] = tensor_a->matrix[i][j];
         }
     }
-    return tensor_b;
+}
+
+void tensor_broadcast(tensor *input, tensor *result)
+{
+    if (input->size[0] == 1)
+    {
+        for (int i = 0; i < result->size[0]; i++)
+        {
+            for (int j = 0; j < result->size[1]; j++)
+            {
+                result->matrix[i][j] = input->matrix[0][j];
+            }
+        }
+    }
+    else if (input->size[1] == 1)
+    {
+        for (int i = 0; i < result->size[0]; i++)
+        {
+            for (int j = 0; j < result->size[1]; j++)
+            {
+                result->matrix[i][j] = input->matrix[i][0];
+            }
+        }
+    }
+    else
+    {
+        printf("Invalid input sizes for broadcasting.\n");
+    }
 }
 
 tensor convert_tensor(float **array, int rows, int cols)
