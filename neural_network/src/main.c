@@ -2,7 +2,7 @@
  * @ Author: Shuvrajeet Das
  * @ Create Time: 2023-12-15 23:09:00
  * @ Modified by: Your name
- * @ Modified time: 2023-12-27 10:47:19
+ * @ Modified time: 2023-12-27 11:01:04
  * @ Description: main file for calling all the necessary outputs
  */
 
@@ -22,6 +22,10 @@ void linear_regression(float **dataset, int num_rows, int num_cols, int batch_si
     int x_shape[2] = {num_rows, num_cols - 1};
     int y_shape[2] = {num_rows, 1};
 
+    int true_weights[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    printf("\nTrue weights:");
+    print_1d_array(true_weights, 10);
+
     float **data = array2d_slice(dataset, 0, x_shape[0], 0, x_shape[1]);
     float **label = array2d_slice(dataset, 0, y_shape[0], x_shape[1], x_shape[1] + 1);
 
@@ -35,6 +39,9 @@ void linear_regression(float **dataset, int num_rows, int num_cols, int batch_si
     tensor temp_weights = allocate_zero_values(x_shape[1], 1);
     tensor gradient_weights = allocate_zero_values(x_shape[1], 1);
     float bias = 0.1f;
+
+    printf("Weights before training\n");
+    print_tensor(weights);
 
     for (int epoch = 0; epoch < epochs; epoch++)
     {
@@ -85,8 +92,16 @@ void linear_regression(float **dataset, int num_rows, int num_cols, int batch_si
             free_tensor(x_batch);
             free_tensor(y_batch);
         }
+        if (epoch > epochs / 2)
+        {
+            alpha *= 0.995;
+        }
+
         printf("Mean Batch loss at epoch [%d/%d]: %.4f\n", epoch + 1, epochs, mean_batch_loss / list_size);
     }
+
+    printf("Weights after training\n");
+    print_tensor(weights);
 
     free_tensor(weights);
     free_tensor(temp_weights);
@@ -110,7 +125,7 @@ int main(int argc, char **argv)
     int num_rows, num_columns;
 
     float **data_array = read_csv(filename, &num_rows, &num_columns);
-    linear_regression(data_array, num_rows, num_columns, 512, iterations, 0.001);
+    linear_regression(data_array, num_rows, num_columns, 512, iterations, 0.01);
 
     return 0;
 }

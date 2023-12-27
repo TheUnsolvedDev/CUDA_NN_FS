@@ -8,103 +8,183 @@ nvcc -arch=sm_75 -lcudart -lcublas -Iinclude -c src/activations.cu -o obj/activa
 nvcc -arch=sm_75 -lcudart -lcublas -Iinclude -c src/losses.cu -o obj/losses.cu.o
 nvcc -arch=sm_75 -lcudart -lcublas -Iinclude -c src/operations.cu -o obj/operations.cu.o
 nvcc -arch=sm_75 -lcudart -lcublas obj/benchmark.o obj/initializers.o obj/main.o obj/optimizers.o obj/utils.o obj/activations.cu.o obj/losses.cu.o obj/operations.cu.o -o bin/program
-Mean Batch loss at epoch [1/100]: 483.6212
-Mean Batch loss at epoch [2/100]: 413.2239
-Mean Batch loss at epoch [3/100]: 353.1998
-Mean Batch loss at epoch [4/100]: 302.0166
-Mean Batch loss at epoch [5/100]: 258.3780
-Mean Batch loss at epoch [6/100]: 221.1680
-Mean Batch loss at epoch [7/100]: 189.4408
-Mean Batch loss at epoch [8/100]: 162.3829
-Mean Batch loss at epoch [9/100]: 139.3103
-Mean Batch loss at epoch [10/100]: 119.6355
-Mean Batch loss at epoch [11/100]: 102.8574
-Mean Batch loss at epoch [12/100]: 88.5471
-Mean Batch loss at epoch [13/100]: 76.3397
-Mean Batch loss at epoch [14/100]: 65.9340
-Mean Batch loss at epoch [15/100]: 57.0534
-Mean Batch loss at epoch [16/100]: 49.4787
-Mean Batch loss at epoch [17/100]: 43.0187
-Mean Batch loss at epoch [18/100]: 37.5043
-Mean Batch loss at epoch [19/100]: 32.7974
-Mean Batch loss at epoch [20/100]: 28.7866
-Mean Batch loss at epoch [21/100]: 25.3595
-Mean Batch loss at epoch [22/100]: 22.4343
-Mean Batch loss at epoch [23/100]: 19.9386
-Mean Batch loss at epoch [24/100]: 17.8041
-Mean Batch loss at epoch [25/100]: 15.9796
-Mean Batch loss at epoch [26/100]: 14.4228
-Mean Batch loss at epoch [27/100]: 13.0900
-Mean Batch loss at epoch [28/100]: 11.9512
-Mean Batch loss at epoch [29/100]: 10.9732
-Mean Batch loss at epoch [30/100]: 10.1373
-Mean Batch loss at epoch [31/100]: 9.4206
-Mean Batch loss at epoch [32/100]: 8.7999
-Mean Batch loss at epoch [33/100]: 8.2743
-Mean Batch loss at epoch [34/100]: 7.8153
-Mean Batch loss at epoch [35/100]: 7.4248
-Mean Batch loss at epoch [36/100]: 7.0871
-Mean Batch loss at epoch [37/100]: 6.7916
-Mean Batch loss at epoch [38/100]: 6.5403
-Mean Batch loss at epoch [39/100]: 6.3234
-Mean Batch loss at epoch [40/100]: 6.1274
-Mean Batch loss at epoch [41/100]: 5.9609
-Mean Batch loss at epoch [42/100]: 5.8125
-Mean Batch loss at epoch [43/100]: 5.6850
-Mean Batch loss at epoch [44/100]: 5.5690
-Mean Batch loss at epoch [45/100]: 5.4659
-Mean Batch loss at epoch [46/100]: 5.3775
-Mean Batch loss at epoch [47/100]: 5.2973
-Mean Batch loss at epoch [48/100]: 5.2224
-Mean Batch loss at epoch [49/100]: 5.1553
-Mean Batch loss at epoch [50/100]: 5.0952
-Mean Batch loss at epoch [51/100]: 5.0382
-Mean Batch loss at epoch [52/100]: 4.9901
-Mean Batch loss at epoch [53/100]: 4.9418
-Mean Batch loss at epoch [54/100]: 4.8979
-Mean Batch loss at epoch [55/100]: 4.8546
-Mean Batch loss at epoch [56/100]: 4.8126
-Mean Batch loss at epoch [57/100]: 4.7748
-Mean Batch loss at epoch [58/100]: 4.7404
-Mean Batch loss at epoch [59/100]: 4.7079
-Mean Batch loss at epoch [60/100]: 4.6758
-Mean Batch loss at epoch [61/100]: 4.6424
-Mean Batch loss at epoch [62/100]: 4.6117
-Mean Batch loss at epoch [63/100]: 4.5834
-Mean Batch loss at epoch [64/100]: 4.5549
-Mean Batch loss at epoch [65/100]: 4.5267
-Mean Batch loss at epoch [66/100]: 4.4970
-Mean Batch loss at epoch [67/100]: 4.4698
-Mean Batch loss at epoch [68/100]: 4.4438
-Mean Batch loss at epoch [69/100]: 4.4161
-Mean Batch loss at epoch [70/100]: 4.3900
-Mean Batch loss at epoch [71/100]: 4.3639
-Mean Batch loss at epoch [72/100]: 4.3382
-Mean Batch loss at epoch [73/100]: 4.3144
-Mean Batch loss at epoch [74/100]: 4.2899
-Mean Batch loss at epoch [75/100]: 4.2651
-Mean Batch loss at epoch [76/100]: 4.2402
-Mean Batch loss at epoch [77/100]: 4.2165
-Mean Batch loss at epoch [78/100]: 4.1940
-Mean Batch loss at epoch [79/100]: 4.1708
-Mean Batch loss at epoch [80/100]: 4.1471
-Mean Batch loss at epoch [81/100]: 4.1219
-Mean Batch loss at epoch [82/100]: 4.0993
-Mean Batch loss at epoch [83/100]: 4.0757
-Mean Batch loss at epoch [84/100]: 4.0523
-Mean Batch loss at epoch [85/100]: 4.0284
-Mean Batch loss at epoch [86/100]: 4.0054
-Mean Batch loss at epoch [87/100]: 3.9835
-Mean Batch loss at epoch [88/100]: 3.9607
-Mean Batch loss at epoch [89/100]: 3.9376
-Mean Batch loss at epoch [90/100]: 3.9156
-Mean Batch loss at epoch [91/100]: 3.8932
-Mean Batch loss at epoch [92/100]: 3.8699
-Mean Batch loss at epoch [93/100]: 3.8491
-Mean Batch loss at epoch [94/100]: 3.8262
-Mean Batch loss at epoch [95/100]: 3.8046
-Mean Batch loss at epoch [96/100]: 3.7834
-Mean Batch loss at epoch [97/100]: 3.7612
-Mean Batch loss at epoch [98/100]: 3.7395
-Mean Batch loss at epoch [99/100]: 3.7188
-Mean Batch loss at epoch [100/100]: 3.6978
+
+True weights:0 1 2 3 4 5 6 7 8 9 
+Weights before training
+
+matrix:
+0.0000	
+0.0000	
+0.0000	
+0.0000	
+0.0000	
+0.0000	
+0.0000	
+0.0000	
+0.0000	
+0.0000	
+shape:(10,1)
+Mean Batch loss at epoch [1/150]: 266.4086
+Mean Batch loss at epoch [2/150]: 58.1983
+Mean Batch loss at epoch [3/150]: 16.1132
+Mean Batch loss at epoch [4/150]: 7.4169
+Mean Batch loss at epoch [5/150]: 5.4467
+Mean Batch loss at epoch [6/150]: 4.8360
+Mean Batch loss at epoch [7/150]: 4.5120
+Mean Batch loss at epoch [8/150]: 4.2526
+Mean Batch loss at epoch [9/150]: 4.0159
+Mean Batch loss at epoch [10/150]: 3.7939
+Mean Batch loss at epoch [11/150]: 3.5830
+Mean Batch loss at epoch [12/150]: 3.3820
+Mean Batch loss at epoch [13/150]: 3.1964
+Mean Batch loss at epoch [14/150]: 3.0176
+Mean Batch loss at epoch [15/150]: 2.8468
+Mean Batch loss at epoch [16/150]: 2.6851
+Mean Batch loss at epoch [17/150]: 2.5324
+Mean Batch loss at epoch [18/150]: 2.3861
+Mean Batch loss at epoch [19/150]: 2.2474
+Mean Batch loss at epoch [20/150]: 2.1151
+Mean Batch loss at epoch [21/150]: 1.9936
+Mean Batch loss at epoch [22/150]: 1.8739
+Mean Batch loss at epoch [23/150]: 1.7640
+Mean Batch loss at epoch [24/150]: 1.6584
+Mean Batch loss at epoch [25/150]: 1.5569
+Mean Batch loss at epoch [26/150]: 1.4598
+Mean Batch loss at epoch [27/150]: 1.3707
+Mean Batch loss at epoch [28/150]: 1.2881
+Mean Batch loss at epoch [29/150]: 1.2063
+Mean Batch loss at epoch [30/150]: 1.1328
+Mean Batch loss at epoch [31/150]: 1.0590
+Mean Batch loss at epoch [32/150]: 0.9898
+Mean Batch loss at epoch [33/150]: 0.9246
+Mean Batch loss at epoch [34/150]: 0.8651
+Mean Batch loss at epoch [35/150]: 0.8080
+Mean Batch loss at epoch [36/150]: 0.7544
+Mean Batch loss at epoch [37/150]: 0.7017
+Mean Batch loss at epoch [38/150]: 0.6534
+Mean Batch loss at epoch [39/150]: 0.6061
+Mean Batch loss at epoch [40/150]: 0.5621
+Mean Batch loss at epoch [41/150]: 0.5211
+Mean Batch loss at epoch [42/150]: 0.4821
+Mean Batch loss at epoch [43/150]: 0.4463
+Mean Batch loss at epoch [44/150]: 0.4121
+Mean Batch loss at epoch [45/150]: 0.3808
+Mean Batch loss at epoch [46/150]: 0.3493
+Mean Batch loss at epoch [47/150]: 0.3207
+Mean Batch loss at epoch [48/150]: 0.2941
+Mean Batch loss at epoch [49/150]: 0.2698
+Mean Batch loss at epoch [50/150]: 0.2471
+Mean Batch loss at epoch [51/150]: 0.2258
+Mean Batch loss at epoch [52/150]: 0.2056
+Mean Batch loss at epoch [53/150]: 0.1868
+Mean Batch loss at epoch [54/150]: 0.1682
+Mean Batch loss at epoch [55/150]: 0.1516
+Mean Batch loss at epoch [56/150]: 0.1365
+Mean Batch loss at epoch [57/150]: 0.1230
+Mean Batch loss at epoch [58/150]: 0.1101
+Mean Batch loss at epoch [59/150]: 0.0964
+Mean Batch loss at epoch [60/150]: 0.0859
+Mean Batch loss at epoch [61/150]: 0.0760
+Mean Batch loss at epoch [62/150]: 0.0671
+Mean Batch loss at epoch [63/150]: 0.0591
+Mean Batch loss at epoch [64/150]: 0.0511
+Mean Batch loss at epoch [65/150]: 0.0443
+Mean Batch loss at epoch [66/150]: 0.0386
+Mean Batch loss at epoch [67/150]: 0.0325
+Mean Batch loss at epoch [68/150]: 0.0277
+Mean Batch loss at epoch [69/150]: 0.0229
+Mean Batch loss at epoch [70/150]: 0.0195
+Mean Batch loss at epoch [71/150]: 0.0160
+Mean Batch loss at epoch [72/150]: 0.0125
+Mean Batch loss at epoch [73/150]: 0.0100
+Mean Batch loss at epoch [74/150]: 0.0081
+Mean Batch loss at epoch [75/150]: 0.0064
+Mean Batch loss at epoch [76/150]: 0.0048
+Mean Batch loss at epoch [77/150]: 0.0038
+Mean Batch loss at epoch [78/150]: 0.0028
+Mean Batch loss at epoch [79/150]: 0.0021
+Mean Batch loss at epoch [80/150]: 0.0016
+Mean Batch loss at epoch [81/150]: 0.0010
+Mean Batch loss at epoch [82/150]: 0.0008
+Mean Batch loss at epoch [83/150]: 0.0005
+Mean Batch loss at epoch [84/150]: 0.0003
+Mean Batch loss at epoch [85/150]: 0.0002
+Mean Batch loss at epoch [86/150]: 0.0001
+Mean Batch loss at epoch [87/150]: 0.0000
+Mean Batch loss at epoch [88/150]: 0.0000
+Mean Batch loss at epoch [89/150]: 0.0000
+Mean Batch loss at epoch [90/150]: 0.0000
+Mean Batch loss at epoch [91/150]: 0.0000
+Mean Batch loss at epoch [92/150]: 0.0000
+Mean Batch loss at epoch [93/150]: 0.0000
+Mean Batch loss at epoch [94/150]: 0.0000
+Mean Batch loss at epoch [95/150]: 0.0000
+Mean Batch loss at epoch [96/150]: 0.0000
+Mean Batch loss at epoch [97/150]: 0.0000
+Mean Batch loss at epoch [98/150]: 0.0000
+Mean Batch loss at epoch [99/150]: 0.0000
+Mean Batch loss at epoch [100/150]: 0.0000
+Mean Batch loss at epoch [101/150]: 0.0000
+Mean Batch loss at epoch [102/150]: 0.0000
+Mean Batch loss at epoch [103/150]: 0.0000
+Mean Batch loss at epoch [104/150]: 0.0000
+Mean Batch loss at epoch [105/150]: 0.0000
+Mean Batch loss at epoch [106/150]: 0.0000
+Mean Batch loss at epoch [107/150]: 0.0000
+Mean Batch loss at epoch [108/150]: 0.0000
+Mean Batch loss at epoch [109/150]: 0.0000
+Mean Batch loss at epoch [110/150]: 0.0000
+Mean Batch loss at epoch [111/150]: 0.0000
+Mean Batch loss at epoch [112/150]: 0.0000
+Mean Batch loss at epoch [113/150]: 0.0000
+Mean Batch loss at epoch [114/150]: 0.0000
+Mean Batch loss at epoch [115/150]: 0.0000
+Mean Batch loss at epoch [116/150]: 0.0000
+Mean Batch loss at epoch [117/150]: 0.0000
+Mean Batch loss at epoch [118/150]: 0.0000
+Mean Batch loss at epoch [119/150]: 0.0000
+Mean Batch loss at epoch [120/150]: 0.0000
+Mean Batch loss at epoch [121/150]: 0.0000
+Mean Batch loss at epoch [122/150]: 0.0000
+Mean Batch loss at epoch [123/150]: 0.0000
+Mean Batch loss at epoch [124/150]: 0.0000
+Mean Batch loss at epoch [125/150]: 0.0000
+Mean Batch loss at epoch [126/150]: 0.0000
+Mean Batch loss at epoch [127/150]: 0.0000
+Mean Batch loss at epoch [128/150]: 0.0000
+Mean Batch loss at epoch [129/150]: 0.0000
+Mean Batch loss at epoch [130/150]: 0.0000
+Mean Batch loss at epoch [131/150]: 0.0000
+Mean Batch loss at epoch [132/150]: 0.0000
+Mean Batch loss at epoch [133/150]: 0.0000
+Mean Batch loss at epoch [134/150]: 0.0000
+Mean Batch loss at epoch [135/150]: 0.0000
+Mean Batch loss at epoch [136/150]: 0.0000
+Mean Batch loss at epoch [137/150]: 0.0000
+Mean Batch loss at epoch [138/150]: 0.0000
+Mean Batch loss at epoch [139/150]: 0.0000
+Mean Batch loss at epoch [140/150]: 0.0000
+Mean Batch loss at epoch [141/150]: 0.0000
+Mean Batch loss at epoch [142/150]: 0.0000
+Mean Batch loss at epoch [143/150]: 0.0000
+Mean Batch loss at epoch [144/150]: 0.0000
+Mean Batch loss at epoch [145/150]: 0.0000
+Mean Batch loss at epoch [146/150]: 0.0000
+Mean Batch loss at epoch [147/150]: 0.0000
+Mean Batch loss at epoch [148/150]: 0.0000
+Mean Batch loss at epoch [149/150]: 0.0000
+Mean Batch loss at epoch [150/150]: 0.0000
+Weights after training
+
+matrix:
+0.1104	
+1.0813	
+2.0502	
+3.0186	
+3.9901	
+4.9743	
+5.9376	
+6.9125	
+7.8745	
+8.8556	
+shape:(10,1)
