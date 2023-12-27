@@ -2,7 +2,7 @@
  * @ Author: Shuvrajeet Das
  * @ Create Time: 2023-12-15 23:09:00
  * @ Modified by: Your name
- * @ Modified time: 2023-12-27 10:39:22
+ * @ Modified time: 2023-12-27 10:47:19
  * @ Description: main file for calling all the necessary outputs
  */
 
@@ -85,7 +85,7 @@ void linear_regression(float **dataset, int num_rows, int num_cols, int batch_si
             free_tensor(x_batch);
             free_tensor(y_batch);
         }
-        printf("Mean Batch loss at epoch [%d/%d]: %.4f\n", epoch, epochs, mean_batch_loss / list_size);
+        printf("Mean Batch loss at epoch [%d/%d]: %.4f\n", epoch + 1, epochs, mean_batch_loss / list_size);
     }
 
     free_tensor(weights);
@@ -99,11 +99,12 @@ void linear_regression(float **dataset, int num_rows, int num_cols, int batch_si
 
 int main(int argc, char **argv)
 {
+    int iterations;
     if (argc <= 1)
     {
-        int iterations = 100;
+        iterations = 100;
     }
-    int iterations = atoi(argv[1]);
+    iterations = atoi(argv[1]);
 
     const char *filename = "linear_data.csv";
     int num_rows, num_columns;
