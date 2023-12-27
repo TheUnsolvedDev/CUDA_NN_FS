@@ -5,6 +5,8 @@ This repository contains an implementation of a neural network from scratch usin
 ## Introduction
 Neural networks are powerful models for machine learning and artificial intelligence tasks. This project focuses on building a basic neural network using the C programming language with CUDA extensions for parallelism. CUDA allows us to harness the computational power of NVIDIA GPUs, speeding up the training and inference phases of the neural network.
 
+For running this make sure GCC and NVCC installed in your system while doing it my GCC version is 11.4.0 and NVCC version is 11.8. **USE THE RUN FILE FOR INSTALLING AND ADD THE PATH TO THE BASHRC FILE**
+
 ## Prerequisites
 To run this project, you need the following dependencies:
 - CUDA-enabled GPU
@@ -22,23 +24,37 @@ neural_network
 ├── bin
 │   └── program
 ├── document.md
+├── generate.py
+├── include
+│   ├── activations.cuh
+│   ├── benchmark.h
+│   ├── initializers.h
+│   ├── losses.cuh
+│   ├── operations.cuh
+│   ├── optimizer.h
+│   └── utils.h
+├── linear_data.csv
 ├── Makefile
 ├── obj
 │   ├── activations.cu.o
+│   ├── benchmark.o
 │   ├── initializers.o
+│   ├── losses.cu.o
 │   ├── main.o
-│   ├── matmul.cu.o
+│   ├── operations.cu.o
+│   ├── optimizers.o
 │   └── utils.o
 ├── run.sh
 ├── src
 │   ├── activations.cu
-│   ├── activations.cuh
+│   ├── benchmark.c
 │   ├── initializers.c
-│   ├── initializers.h
+│   ├── losses.cu
 │   ├── main.c
-│   ├── matmul.cu
-│   ├── matmul.cuh
-│   ├── utils.c
-│   └── utils.h
+│   ├── operations.cu
+│   ├── optimizers.c
+│   ├── output
+│   └── utils.c
 └── valgrind-out.txt
+
 ```
