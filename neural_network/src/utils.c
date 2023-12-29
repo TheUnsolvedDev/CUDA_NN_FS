@@ -1,3 +1,9 @@
+/*
+ * @Author: Shuvrajeet Das 
+ * @Date: 2023-12-28 13:46:55 
+ * @Last Modified by:   shuvrajeet 
+ * @Last Modified time: 2023-12-28 13:46:55 
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -20,6 +26,25 @@ void copy_tensor(tensor *tensor_a, tensor *tensor_b)
         for (int j = 0; j < tensor_a->size[1]; ++j)
         {
             tensor_b->matrix[i][j] = tensor_a->matrix[i][j];
+        }
+    }
+}
+
+void transpose_tensor(tensor *input, tensor *output)
+{
+    if (input->size[0] != output->size[1] || input->size[1] != output->size[0])
+    {
+        printf("Illegal dimension! please check!!\n");
+        exit(EXIT_FAILURE);
+    }
+    int rows = input->size[0];
+    int cols = input->size[1];
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            output->matrix[j][i] = input->matrix[i][j];
         }
     }
 }

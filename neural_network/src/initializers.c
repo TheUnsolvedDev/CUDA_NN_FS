@@ -1,3 +1,9 @@
+/*
+ * @Author: Shuvrajeet Das 
+ * @Date: 2023-12-28 13:46:18 
+ * @Last Modified by:   shuvrajeet 
+ * @Last Modified time: 2023-12-28 13:46:18 
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>

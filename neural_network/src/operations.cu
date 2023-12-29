@@ -1,3 +1,9 @@
+/*
+ * @Author: Shuvrajeet Das 
+ * @Date: 2023-12-28 13:46:41 
+ * @Last Modified by:   shuvrajeet 
+ * @Last Modified time: 2023-12-28 13:46:41 
+ */
 #include <stdio.h>
 #include <cuda.h>
 #include <cuda_runtime.h>
@@ -336,6 +342,81 @@ extern "C" void matrix_sub(tensor *a, tensor *b, tensor *c)
         for (int j = 0; j < a->size[1]; j++)
         {
             matrix_result[i][j] = matrix_a[i][j] - matrix_b[i][j];
+        }
+    }
+}
+
+__global__ void div_kernel(float *a, float *b, float *c, int m)
+{
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx < m)
+    {
+        c[idx] = a[idx] / (b[idx] + 0.0000000001);
+    }
+}
+
+extern "C" void matrix_div_gpu(tensor *a, tensor *b, tensor *c)
+{
+    if (a->size[0] != b->size[0] || a->size[1] != b->size[1])
+    {
+        printf("Illegal dimension! please check!!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    int m = a->size[0], n = a->size[1];
+    int total_data = a->size[0] * a->size[1];
+    float *vector_a = convert2DTo1D(a->matrix, a->size[0], a->size[1], true);
+    float *vector_b = convert2DTo1D(b->matrix, b->size[0], b->size[1], true);
+    float *result = convert2DTo1D(c->matrix, c->size[0], c->size[1], true);
+    float *dvector_a, *dvector_b, *dresult;
+
+    cudaMalloc(&dvector_a, total_data * sizeof(float));
+    cudaMalloc(&dvector_b, total_data * sizeof(float));
+    cudaMalloc(&dresult, total_data * sizeof(float));
+
+    cudaMemcpy(dvector_a, vector_a, total_data * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(dvector_b, vector_b, total_data * sizeof(float), cudaMemcpyHostToDevice);
+
+    unsigned int num_threads = NUM_THREADS;
+    unsigned int num_blocks = ceil((float)total_data / num_threads);
+
+    div_kernel<<<num_blocks, num_threads>>>(dvector_a, dvector_b, dresult, m * n);
+    cudaMemcpy(result, dresult, m * n * sizeof(float), cudaMemcpyDeviceToHost);
+
+    a->matrix = convert1DTo2D(vector_a, m, n, true);
+    a->size[0] = m;
+    a->size[1] = n;
+
+    b->matrix = convert1DTo2D(vector_b, m, n, true);
+    b->size[0] = m;
+    b->size[1] = n;
+
+    c->matrix = convert1DTo2D(result, m, n, true);
+    c->size[0] = m;
+    c->size[1] = n;
+
+    cudaFree(dvector_a);
+    cudaFree(dvector_b);
+    cudaFree(dresult);
+}
+
+extern "C" void matrix_div(tensor *a, tensor *b, tensor *c)
+{
+    if (a->size[0] != b->size[0] || a->size[1] != b->size[1])
+    {
+        printf("Illegal dimension! please check!!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    float **matrix_a = a->matrix;
+    float **matrix_b = b->matrix;
+    float **matrix_result = c->matrix;
+
+    for (int i = 0; i < a->size[0]; i++)
+    {
+        for (int j = 0; j < a->size[1]; j++)
+        {
+            matrix_result[i][j] = matrix_a[i][j] / (matrix_b[i][j] + 0.0000000001);
         }
     }
 }
