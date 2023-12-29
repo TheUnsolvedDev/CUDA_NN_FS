@@ -1,8 +1,8 @@
 import csv
 import numpy as np
 
-NUM_ROWS = 32000
-NUM_COLS = 10
+NUM_ROWS = 48000
+NUM_COLS = 100
 WEIGHTS = [(i % 10) for i in range(NUM_COLS)]
 
 
@@ -62,4 +62,5 @@ def generate_logistic_reg_data_and_save_csv(FILENAME='logistic_data.csv'):
 
 
 if __name__ == "__main__":
+    generate_linear_reg_data_and_save_csv(FILENAME='linear_data.csv')
     generate_logistic_reg_data_and_save_csv()

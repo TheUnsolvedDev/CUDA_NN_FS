@@ -30,9 +30,9 @@ int main()
     int num_rows, num_columns;
     float **data_array;
     
-    // const char *filename_linear_reg = "dataset/linear_data.csv"; 
-    // data_array = read_csv(filename_linear_reg, &num_rows, &num_columns);
-    // linear_regression(data_array, num_rows, num_columns, batch_size, iterations, alpha);
+    const char *filename_linear_reg = "dataset/linear_data.csv"; 
+    data_array = read_csv(filename_linear_reg, &num_rows, &num_columns);
+    linear_regression(data_array, num_rows, num_columns, batch_size, iterations, alpha);
 
     const char *filename_logistic_reg = "dataset/logistic_data.csv";
     data_array = read_csv(filename_logistic_reg, &num_rows, &num_columns);

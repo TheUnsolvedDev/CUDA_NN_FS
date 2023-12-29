@@ -109,7 +109,7 @@ void linear_regression(float **dataset, int num_rows, int num_cols, int batch_si
         {
 
             printf("Mean Batch loss at epoch [%d/%d]: %.4f\t", epoch + 1, epochs, mean_batch_loss / list_size);
-            printf("The R2 score is :%.6f\n", r2_score_value / batch_size);
+            printf("The R2 score is :%.6f\n", r2_score_value / list_size);
         }
     }
 

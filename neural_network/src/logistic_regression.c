@@ -81,7 +81,6 @@ void logistic_regression(float **dataset, int num_rows, int num_cols, int batch_
             // loss calulation
             matrix_multiply_gpu(&x_minus_mean_std, &weights, &y_pred);
             y_pred = sigmoid_activation_gpu(matrix_scalar_add_gpu(bias, y_pred));
-
             logistic_gpu(&y_pred, &y_batch, &losses);
 
             float loss = mean(losses);
@@ -109,7 +108,7 @@ void logistic_regression(float **dataset, int num_rows, int num_cols, int batch_
         if ((epoch + 1) % 5 == 0)
         {
             printf("Mean Batch loss at epoch [%d/%d]: %.4f\t", epoch + 1, epochs, mean_batch_loss / list_size);
-            printf("The accuracy score is :%.6f\n", accuracy_value / batch_size);
+            printf("The accuracy score is :%.6f\n", accuracy_value / list_size);
         }
     }
 
