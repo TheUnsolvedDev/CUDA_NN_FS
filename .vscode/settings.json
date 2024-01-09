@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "matmul.cuh": "c",
-        "utils.h": "c"
+        "utils.h": "c",
+        "operations.cuh": "c"
     }
 }

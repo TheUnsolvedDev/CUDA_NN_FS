@@ -48,9 +48,9 @@ void logistic_regression(float **dataset, int num_rows, int num_cols, int batch_
 
     float bias = 0.0f;
 
-    printf("Weights and bias before training\n");
-    printf("bias:%f \n", bias);
-    print_tensor(weights);
+    printf("\nTraining Started\n");
+    // printf("bias:%f \n", bias);
+    // print_tensor(weights);
 
     for (int epoch = 0; epoch < epochs; epoch++)
     {
@@ -112,9 +112,9 @@ void logistic_regression(float **dataset, int num_rows, int num_cols, int batch_
         }
     }
 
-    printf("Weights and bias after training\n");
-    printf("bias:%f \n", bias);
-    print_tensor(weights);
+    // printf("Weights and bias after training\n");
+    // printf("bias:%f \n", bias);
+    // print_tensor(weights);
     dump_tensor_to_file(&weights, "trained_weights/logistic_regression.weights");
 
     free_tensor(temp_grad);

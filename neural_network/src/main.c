@@ -29,8 +29,10 @@ int main()
 
     int num_rows, num_columns;
     float **data_array;
-    
-    const char *filename_linear_reg = "dataset/linear_data.csv"; 
+
+    time_test(10, 1000, 500, 1000);
+
+    const char *filename_linear_reg = "dataset/linear_data.csv";
     data_array = read_csv(filename_linear_reg, &num_rows, &num_columns);
     linear_regression(data_array, num_rows, num_columns, batch_size, iterations, alpha);
 
