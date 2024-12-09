@@ -1,7 +1,7 @@
 CC := gcc
 NVCC := nvcc
 CFLAGS := -Wall -Wextra
-CUDAFLAGS := -arch=sm_75 -lcudart -lcublas
+CUDAFLAGS := -arch=sm_89 -lcudart -lcublas
 
 SRC_DIR := src
 INCLUDE_DIR := include

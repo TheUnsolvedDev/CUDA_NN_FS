@@ -40,8 +40,8 @@ int main()
     data_array = read_csv(filename_logistic_reg, &num_rows, &num_columns);
     logistic_regression(data_array, num_rows, num_columns, batch_size, iterations, alpha);
 
-    // tensor *loadedTensor = read_tensor_from_file("trained_weights/logistic_regression.weights");
-    // print_tensor(*loadedTensor);
-    // free_tensor(*loadedTensor);
+    tensor *loadedTensor = read_tensor_from_file("trained_weights/linear_regression.weights");
+    print_tensor(*loadedTensor);
+    free_tensor(*loadedTensor);
     return 0;
 }

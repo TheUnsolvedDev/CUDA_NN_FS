@@ -2,7 +2,7 @@ import csv
 import numpy as np
 
 NUM_ROWS = 48000
-NUM_COLS = 100
+NUM_COLS = 200
 WEIGHTS = [(i % 10) for i in range(NUM_COLS)]
 
 
